@@ -1,0 +1,28 @@
+name: Merge to main
+on:
+  push:
+    branches: ["main"]
+  pull_request:
+    branches: ["main"]
+jobs:
+  echo-job:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Test Block
+        run: |
+          echo ${{ github.event.pull_request.merged }}
+          echo ${{ github.ref_name }}
+          echo ${{ github.base_ref }}
+          echo ${{ github.* }}
+      - name: Print Env Vars
+        run:  |
+          echo "Print all environment variables"
+          env
+      # If any branch push to dev
+      - name: Build the container image edge-app-integrity
+        run: echo "Always Do"
+      # If main branch & merged push to prod
+      - name: main Merged
+        if: ${{ github.base_ref == 'main' && github.event.pull_request.merged == 'true' }}
+        run: echo "Only on Merge to main"
