@@ -12,6 +12,8 @@ jobs:
       - name: Test Block
         run: |
           echo ${{ github.event.pull_request.merged }}
+          printf '%s\n' ${{ github.event.pull_request.* }}
+          echo ${{ github.event.pull_request.* }}
           echo ${{ github.ref_name }}
           echo ${{ github.base_ref }}
           echo ${{ github.* }}
@@ -24,5 +26,5 @@ jobs:
         run: echo "Always Do"
       # If main branch & merged push to prod
       - name: main Merged
-        if: ${{ github.event.pull_request.merged == true && github.base_ref == 'main' }} #github.base_ref == 'main' && 
+        if: ${{ github.event.pull_request.merged == true }} #github.base_ref == 'main' &&&& github.base_ref == 'main'
         run: echo "Only on Merge to main"
