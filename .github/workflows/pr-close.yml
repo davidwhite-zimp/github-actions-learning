@@ -6,6 +6,8 @@ on:
     types: [ closed ]
 
 jobs:
+  call-workflow-2-in-local-repo:
+    uses: ./.github/workflows/run-on-merge-master.yml
   merge_job:
     # this job will only run if the PR has been merged
     if: github.event.pull_request.merged == true
