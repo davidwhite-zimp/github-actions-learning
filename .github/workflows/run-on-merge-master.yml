@@ -1,0 +1,18 @@
+name: Merge to Master
+on:
+  push:
+    branches: ["master"]
+  pull_request:
+    branches: ["master"]
+jobs:
+  echo-job:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      # If any branch push to dev
+      - name: Build the container image edge-app-integrity
+        run: echo "Always Do"
+      # If master branch & merged push to prod
+      - name: Master Merged
+        if: ${{ github.event.pull_request.merged == 'true' && github.base_ref == 'master' }}
+        run: echo "Only on Merge to Master"
