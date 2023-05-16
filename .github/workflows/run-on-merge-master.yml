@@ -7,8 +7,10 @@ on:
   #pull_request:
   #  branches: ["main"]
   pull_request:
-    branches: ["main"]
-    types: [ closed ]
+    branches:
+      - "main"
+    types:
+      - closed
 jobs:
   echo-job:
     runs-on: ubuntu-latest
