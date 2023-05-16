@@ -1,12 +1,12 @@
 name: Merge to main
 on:
-  #push:
-  #  branches: ["main"]
+  push:
+    branches: ["main"]
   #pull_request:
   #  branches: ["main"]
   pull_request:
-    types:
-      - closed
+    branches: ["main"]
+    #types: [ closed ]
 jobs:
   echo-job:
     runs-on: ubuntu-latest
@@ -31,3 +31,19 @@ jobs:
       - name: main Merged
         if: github.event.pull_request.merged == true #github.base_ref == 'main' &&&& github.base_ref == 'main'
         run: echo "Only on Merge to main"
+ 
+  merge_job:
+    # this job will only run if the PR has been merged
+    if: github.event.pull_request.merged == true
+    runs-on: ubuntu-latest
+    steps:
+    - run: |
+        echo PR #${{ github.event.number }} has been merged
+
+  close_job:
+    # this job will only run if the PR has been closed without being merged
+    if: github.event.pull_request.merged == false
+    runs-on: ubuntu-latest
+    steps:
+    - run: |
+        echo PR #${{ github.event.number }} has been closed without being merged
