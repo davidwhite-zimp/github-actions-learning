@@ -1,7 +1,8 @@
 name: Merge to main
 on:
   push:
-    branches: ["**"]
+    branches:
+      - "**"
   #pull_request:
   #  branches: ["main"]
   pull_request:
